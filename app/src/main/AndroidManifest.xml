@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- XML 문서의 버전과 문자 인코딩을 선언 -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- AndroidManifest.xml의 루트 요소로, 애플리케이션의 기본 정보를 정의
+         - `xmlns:android` : Android 네임스페이스를 정의하여 XML 태그에서 `android:` 속성을 사용 가능하게 함.
+         - `xmlns:tools` : 개발 및 디버깅을 위한 추가적인 속성 제공 (예: `tools:targetApi`). -->
+
+    <!-- 📌 애플리케이션이 요청하는 필수 권한 목록 -->
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <!-- ✅ 블루투스 기능을 사용하기 위한 권한 (Android 12 이하에서 사용)
+         - 기기 간 블루투스 연결을 설정하거나 검색하는 기능을 수행할 수 있음.
+         - Android 12(API 31)부터는 `BLUETOOTH_CONNECT` 및 `BLUETOOTH_SCAN`으로 대체됨. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- ✅ 블루투스 설정을 변경하기 위한 관리자 권한 (Android 12 이하에서 사용)
+         - 블루투스 페어링, 장치 검색 및 연결을 관리할 수 있도록 해줌.
+         - Android 12(API 31)부터는 `BLUETOOTH_CONNECT` 및 `BLUETOOTH_SCAN`으로 대체됨. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <!-- ✅ Android 12(API 31) 이상에서 블루투스 연결을 관리하기 위한 권한
+         - 블루투스 장치와의 연결을 설정하고 데이터를 송수신할 수 있음.
+         - Android 12부터 `BLUETOOTH_ADMIN` 및 `BLUETOOTH` 권한이 분리됨. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <!-- ✅ Android 12(API 31) 이상에서 블루투스 검색을 수행하기 위한 권한
+         - 주변 블루투스 장치를 검색하고 페어링할 수 있도록 해줌.
+         - Android 12부터 `BLUETOOTH_ADMIN`이 `BLUETOOTH_SCAN`과 `BLUETOOTH_CONNECT`로 분리됨. -->
+    <uses-feature android:name="android.software.companion_device_setup"/>
+    <!-- ✅ 애플리케이션이 "Companion Device Setup" 기능을 사용함을 나타냄.
+         - Companion Device API를 통해 특정 블루투스 장치를 연동할 수 있도록 지원.
+         - 웨어러블 기기, 스마트워치, 스마트폰과의 자동 연결 등에 사용됨. -->
+
+    <!-- 📌 애플리케이션 정보를 정의하는 `application` 태그 -->
+
+    <!-- ✅ 사용자가 앱 데이터를 백업할 수 있도록 허용 (기본값: true)
+             - `false`로 설정하면 백업 기능이 비활성화됨. -->
+
+    <!-- ✅ 앱 데이터 백업 시 적용할 규칙을 지정하는 XML 파일을 지정.
+             - `@xml/data_extraction_rules`: XML 리소스 경로를 참조하여 특정 데이터를 백업할 수 있도록 정의. -->
+
+    <!-- ✅ 앱의 전체 백업 및 복원 시 적용할 백업 규칙을 정의하는 XML 파일.
+             - `@xml/backup_rules`: 백업할 데이터 및 제외할 데이터를 설정할 수 있음. -->
+
+    <!-- ✅ 애플리케이션의 기본 아이콘을 지정.
+             - `@drawable/bluetoothchatlogo`: 앱 아이콘으로 사용할 이미지 파일의 경로를 지정. -->
+
+    <!-- ✅ 애플리케이션의 이름을 설정 (앱의 홈 화면에서 표시될 이름).
+             - `@string/app_name`: strings.xml 파일에서 앱 이름을 불러옴. -->
+
+    <!-- ✅ Android 7.1(API 25) 이상에서 사용될 원형 아이콘을 지정.
+             - `@drawable/bluetoothchatlogo`: 아이콘 파일의 경로. -->
+
+    <!-- ✅ 애플리케이션이 RTL(Right-to-Left) 언어(아랍어, 히브리어 등)를 지원하는지 여부.
+             - `true`로 설정하면 Android 시스템이 자동으로 RTL 레이아웃을 적용. -->
+
+    <!-- ✅ 애플리케이션에서 사용할 기본 테마를 지정.
+             - `@style/Theme.BluetoothChat`: styles.xml 파일에 정의된 테마를 불러옴. -->
+
+    <!-- ✅ `tools:targetApi="31"`은 **개발 도구(예: Lint)**가 API 31(Android 12) 기준으로 동작하도록 설정.
+             - 실제 앱의 `targetSdkVersion`과는 별개로, 개발 중 경고나 오류를 필터링하는 용도로 사용됨. -->
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/bluetoothchatlogo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/bluetoothchatlogo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.BluetoothChat"
+        tools:targetApi="31">
+        <!-- 📌 애플리케이션의 메인 액티비티(MainActivity)를 정의 -->
+
+        <!-- ✅ 앱의 시작(Activity) 클래스 지정 (MainActivity가 앱의 첫 화면이 됨). -->
+
+        <!-- ✅ `true`로 설정하면 다른 앱에서도 이 액티비티를 실행할 수 있음.
+                 - `false`로 설정하면 내부 앱에서만 접근 가능.
+                 - `Intent Filter`가 설정된 경우 `android:exported` 속성을 반드시 명시해야 함. -->
+
+        <!-- ✅ MainActivity에서 사용할 개별 테마를 지정. -->
+
+        <activity
+            android:name="com.gogumac.bluetoothchat.ui.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.BluetoothChat">
+            <!-- 📌 앱이 실행될 때 기본적으로 실행되는 인텐트 필터 -->
+
+            <!-- ✅ `MAIN` 액션을 가진 인텐트가 실행되면 이 액티비티가 시작됨.
+                    - 앱의 진입점(Launch Activity)으로 사용됨. -->
+
+            <!-- ✅ 이 액티비티가 앱의 **홈 화면 아이콘에서 실행될 수 있도록 설정**.
+                    - `LAUNCHER` 카테고리는 앱이 사용자가 실행할 수 있는 기본 앱임을 나타냄. -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
